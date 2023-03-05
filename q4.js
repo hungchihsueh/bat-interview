@@ -26,7 +26,7 @@ for (let i = 0; i < candidates.length; i++) {
 		]);
 	}
 }
+// 把每個陣列依照probability去排序
 ansMap.forEach(city=>city.sort((a,b)=>b.probability-a.probability))
 let ans = Array.from(ansMap);
 console.log(ans);
-// console.log(sorted)
