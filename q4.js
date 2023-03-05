@@ -7,18 +7,26 @@ const candidates = [
 	{ name: "F", city: "Taipei", probability: 0.05, population: 2000000 },
 	{ name: "G", city: "Taoyuan", probability: 0.1, population: 1500000 },
 ];
-let num = 0;
-candidates.forEach(({ probability }) => {
-	num =(num*100+probability*100)/100
-	console.log(num)
-});
-// console.log(num);
-const sortingCandidates = (candidates) => {
-	let sorted = candidates.sort((a, b) => {
-		return b.city.localeCompare(a.city);
-	});
-	let groupedarr = [];
-	sorted.forEach((candidate, i) => {
-		
-	})
-};
+
+const ansMap = new Map(); //實例一個Map
+
+/* 
+Loop candidates 去看ansMap有沒有city這個key值，
+沒有我們就set一個，並給他一個[candidates[i]]為value ，
+有的話我們把新的candidate物件新增到value的陣列裡面。
+最後我們用Array.from()去轉換成陣列
+*/
+for (let i = 0; i < candidates.length; i++) {
+	if (!ansMap.has(candidates[i].city)) {
+		ansMap.set(candidates[i].city,[candidates[i]]) ;
+	} else {
+		ansMap.set(candidates[i].city, [
+			...ansMap.get(candidates[i].city),
+			candidates[i],
+		]);
+	}
+}
+ansMap.forEach(city=>city.sort((a,b)=>b.probability-a.probability))
+let ans = Array.from(ansMap);
+console.log(ans);
+// console.log(sorted)
